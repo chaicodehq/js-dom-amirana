@@ -2,7 +2,7 @@
  * 🍬 Kolkata Sweet Shop - createElement & appendChild
  *
  * Kolkata ke famous sweet shop ka digital menu board banana hai.
- * Rasgulla, sandesh, mishti doi - sab kuch DOM elements se render
+ *       Rasgulla, sandesh, mishti doi - sab kuch DOM elements se render
  * karenge. createElement se items banao, appendChild se menu board
  * pe lagao. Jaise sweet shop mein ek ek mithai counter pe sajati hai,
  * waise hi tum ek ek element DOM mein add karoge.
@@ -62,12 +62,53 @@
  */
 export function createSweetItem(name, price, category) {
   // Your code here
+
+  if (!name || !price || !category) return null;
+
+  if (typeof name !== 'string' || typeof price !== 'number' || typeof category !== 'string') return null;
+
+  const div = document.createElement('div');
+  div.classList.add("sweet-item");
+  div.innerHTML = `
+    <h3>${name}</h3>
+    <p class="price">₹${price}</p>
+    <span class="category">${category}</span>
+  
+  `
+  return div;
 }
 
 export function buildMenuBoard(sweets) {
   // Your code here
+
+  if(!Array.isArray(sweets)) return null;
+
+  const div = document.createElement("div");
+  div.id = "menu-board";
+
+  sweets.forEach(sweet => {
+    const sweetItem = createSweetItem(sweet.name, sweet.price, sweet.category)
+
+    if (sweetItem) {
+      div.appendChild(sweetItem);
+    }
+  });
+
+  return div;
 }
 
 export function addSpecialBadge(sweetElement, badgeText) {
   // Your code here
+
+  if (typeof badgeText !== 'string' || !badgeText) return null;
+
+  if (!sweetElement) return null;
+
+  const span = document.createElement('span');
+  span.classList.add('special-badge');
+  span.textContent = badgeText;
+
+  sweetElement.appendChild(span);
+
+  return sweetElement;
 }
